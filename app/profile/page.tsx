@@ -31,11 +31,29 @@ export default function ProfilePage() {
       setUser(user)
 
       // プロフィール情報を取得
-      const { data: profileData } = await supabase
+      let { data: profileData } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', user.id)
         .single()
+
+      // プロフィールが存在しない場合は作成
+      if (!profileData) {
+        const { data: newProfile, error: profileError } = await supabase
+          .from('profiles')
+          .insert({
+            id: user.id,
+            email: user.email!,
+            full_name: user.user_metadata?.full_name || null,
+            avatar_url: user.user_metadata?.avatar_url || null,
+          })
+          .select()
+          .single()
+
+        if (!profileError && newProfile) {
+          profileData = newProfile
+        }
+      }
 
       setProfile(profileData)
 

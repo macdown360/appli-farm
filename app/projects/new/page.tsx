@@ -40,6 +40,30 @@ export default function NewProjectPage() {
         throw new Error('ログインが必要です')
       }
 
+      // プロフィールが存在するか確認し、なければ作成
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('id', user.id)
+        .single()
+
+      if (!profile) {
+        // プロフィールが存在しない場合は作成
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert({
+            id: user.id,
+            email: user.email!,
+            full_name: user.user_metadata?.full_name || null,
+            avatar_url: user.user_metadata?.avatar_url || null,
+          })
+
+        if (profileError) {
+          console.error('Profile creation error:', profileError)
+          throw new Error('プロフィールの作成に失敗しました。もう一度お試しください。')
+        }
+      }
+
       const tagsArray = tags
         .split(',')
         .map(tag => tag.trim())
