@@ -156,7 +156,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-amber-50">
         <Navbar />
         <div className="max-w-4xl mx-auto py-12 px-4 text-center">
           <p className="text-gray-500">読み込み中...</p>
@@ -170,13 +170,12 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-amber-50">
       <Navbar />
-
       <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="mb-6">
-          <Link href="/projects" className="text-blue-600 hover:text-blue-700 flex items-center">
-            ← プロジェクト一覧に戻る
+          <Link href="/projects" className="text-green-600 hover:text-green-700 flex items-center">
+            ← みんなの畑に戻る
           </Link>
         </div>
 
@@ -196,7 +195,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
           <div className="p-8">
             {/* カテゴリ */}
             {project.category && (
-              <span className="inline-block px-3 py-1 text-sm font-semibold text-blue-600 bg-blue-100 rounded-full mb-4">
+              <span className="inline-block px-3 py-1 text-sm font-semibold text-green-700 bg-green-100 rounded-full mb-4">
                 {project.category}
               </span>
             )}
@@ -258,9 +257,9 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 text-center"
+                className="flex-1 px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 text-center"
               >
-                🔗 サイトを開く
+                🌿 サイトを開く
               </a>
               
               <button

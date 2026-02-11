@@ -79,7 +79,7 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-amber-50">
         <Navbar />
         <div className="max-w-7xl mx-auto py-12 px-4 text-center">
           <p className="text-gray-500">読み込み中...</p>
@@ -89,7 +89,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-amber-50">
       <Navbar />
 
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -123,9 +123,9 @@ export default function ProfilePage() {
                     href={profile.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-700 mt-2 inline-block"
+                    className="text-green-600 hover:text-green-700 mt-2 inline-block"
                   >
-                    🔗 {profile.website}
+                    🌿 {profile.website}
                   </a>
                 )}
               </div>
@@ -142,14 +142,14 @@ export default function ProfilePage() {
         {/* 統計情報 */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white shadow rounded-lg p-6 text-center">
-            <p className="text-3xl font-bold text-blue-600">{projects.length}</p>
-            <p className="text-gray-600 mt-2">投稿したプロジェクト</p>
+            <p className="text-3xl font-bold text-green-600">{projects.length}</p>
+            <p className="text-gray-600 mt-2">育てたアプリ</p>
           </div>
           <div className="bg-white shadow rounded-lg p-6 text-center">
             <p className="text-3xl font-bold text-red-500">
               {projects.reduce((sum, p) => sum + (p.likes_count || 0), 0)}
             </p>
-            <p className="text-gray-600 mt-2">獲得したいいね</p>
+            <p className="text-gray-600 mt-2">もらった水やり（いいね）</p>
           </div>
           <div className="bg-white shadow rounded-lg p-6 text-center">
             <p className="text-3xl font-bold text-green-600">
@@ -163,13 +163,13 @@ export default function ProfilePage() {
         <div>
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold text-gray-900">
-              あなたのプロジェクト
+              🌱 あなたの畑
             </h2>
             <Link
               href="/projects/new"
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
             >
-              + 新規投稿
+              🌱 新しく植える
             </Link>
           </div>
 
@@ -182,13 +182,13 @@ export default function ProfilePage() {
           ) : (
             <div className="bg-white shadow rounded-lg p-12 text-center">
               <p className="text-gray-500 text-lg mb-4">
-                まだプロジェクトを投稿していません
+                🌱 まだ何も植えていません
               </p>
               <Link
                 href="/projects/new"
-                className="text-blue-600 hover:text-blue-700 font-medium"
+                className="text-green-600 hover:text-green-700 font-medium"
               >
-                最初のプロジェクトを投稿する
+                最初の種をまいてみませんか？
               </Link>
             </div>
           )}

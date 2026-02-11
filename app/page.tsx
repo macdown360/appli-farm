@@ -20,30 +20,36 @@ export default async function Home() {
     .limit(6)
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-amber-50">
       <Navbar />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="bg-gradient-to-br from-green-600 via-green-700 to-emerald-800 text-white py-20 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 text-8xl">🌱</div>
+          <div className="absolute top-20 right-20 text-6xl">🌻</div>
+          <div className="absolute bottom-10 left-1/4 text-7xl">🌿</div>
+          <div className="absolute bottom-20 right-1/3 text-5xl">🐝</div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h1 className="text-5xl font-bold mb-6">
-            WEBサイト・アプリを<br />共有しよう 🚀
+            あなたのアプリを<br />みんなで育てよう 🌾
           </h1>
-          <p className="text-xl mb-8 text-blue-100">
-            誰でも簡単に自分が作ったWEBサイトやWEBアプリを登録して公開できるプラットフォーム
+          <p className="text-xl mb-8 text-green-100">
+            自分が作ったWEBサイトやアプリを公開して、利用者からのフィードバックを受けながら一緒に育てていくプラットフォーム
           </p>
           <div className="flex justify-center space-x-4">
             <Link
               href="/auth/signup"
-              className="px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+              className="px-8 py-3 bg-white text-green-700 rounded-lg font-semibold hover:bg-green-50 transition-colors"
             >
-              無料で始める
+              無料で種をまく 🌱
             </Link>
             <Link
               href="/projects"
-              className="px-8 py-3 bg-blue-700 text-white rounded-lg font-semibold hover:bg-blue-800 transition-colors border border-blue-500"
+              className="px-8 py-3 bg-green-800 text-white rounded-lg font-semibold hover:bg-green-900 transition-colors border border-green-500"
             >
-              プロジェクトを見る
+              畑を見にいく
             </Link>
           </div>
         </div>
@@ -56,25 +62,25 @@ export default async function Home() {
             Appli Farmの特徴
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center p-6">
-              <div className="text-4xl mb-4">✨</div>
-              <h3 className="text-xl font-semibold mb-2">簡単投稿</h3>
+            <div className="text-center p-6 bg-green-50 rounded-xl">
+              <div className="text-4xl mb-4">🌱</div>
+              <h3 className="text-xl font-semibold mb-2 text-green-800">種をまく</h3>
               <p className="text-gray-600">
-                タイトル、説明、URLを入力するだけで簡単にプロジェクトを公開できます
+                タイトル、説明、URLを入力するだけで簡単にアプリを公開。あなたのアイデアの種を植えましょう
               </p>
             </div>
-            <div className="text-center p-6">
-              <div className="text-4xl mb-4">🔍</div>
-              <h3 className="text-xl font-semibold mb-2">発見しやすい</h3>
+            <div className="text-center p-6 bg-amber-50 rounded-xl">
+              <div className="text-4xl mb-4">💧</div>
+              <h3 className="text-xl font-semibold mb-2 text-amber-800">水をやる</h3>
               <p className="text-gray-600">
-                カテゴリやタグで整理され、検索機能で目的のプロジェクトがすぐに見つかります
+                利用者からのフィードバックやいいねが、あなたのアプリを成長させる栄養になります
               </p>
             </div>
-            <div className="text-center p-6">
-              <div className="text-4xl mb-4">❤️</div>
-              <h3 className="text-xl font-semibold mb-2">いいね & シェア</h3>
+            <div className="text-center p-6 bg-green-50 rounded-xl">
+              <div className="text-4xl mb-4">🌳</div>
+              <h3 className="text-xl font-semibold mb-2 text-green-800">一緒に育てる</h3>
               <p className="text-gray-600">
-                気に入ったプロジェクトにいいねをしたり、SNSでシェアできます
+                みんなの声を聞きながらアプリを改善。小さな芽が大きな木に育ちます
               </p>
             </div>
           </div>
@@ -82,13 +88,13 @@ export default async function Home() {
       </section>
 
       {/* Recent Projects Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-amber-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900">最新のプロジェクト</h2>
+            <h2 className="text-3xl font-bold text-gray-900">🌿 最近植えられたアプリ</h2>
             <Link
               href="/projects"
-              className="text-blue-600 hover:text-blue-700 font-medium"
+              className="text-green-600 hover:text-green-700 font-medium"
             >
               すべて見る →
             </Link>
@@ -101,15 +107,15 @@ export default async function Home() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12 bg-white rounded-lg border-2 border-dashed border-gray-300">
+            <div className="text-center py-12 bg-white rounded-lg border-2 border-dashed border-green-300">
               <p className="text-gray-500 text-lg mb-4">
-                まだプロジェクトが投稿されていません
+                🌱 まだ畑には何も植えられていません
               </p>
               <Link
                 href="/auth/signup"
-                className="text-blue-600 hover:text-blue-700 font-medium"
+                className="text-green-600 hover:text-green-700 font-medium"
               >
-                最初の投稿者になりませんか？
+                最初の種をまきませんか？
               </Link>
             </div>
           )}
@@ -117,27 +123,27 @@ export default async function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-blue-600 text-white">
+      <section className="py-16 bg-gradient-to-r from-green-600 to-emerald-700 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">
-            あなたのプロジェクトを世界に公開しよう
+            🌾 あなたのアプリの種を植えよう
           </h2>
-          <p className="text-xl mb-8 text-blue-100">
-            無料で始められます。今すぐ登録して、作品を共有しましょう！
+          <p className="text-xl mb-8 text-green-100">
+            無料で始められます。今すぐ登録して、みんなと一緒にアプリを育てましょう！
           </p>
           <Link
             href="/auth/signup"
-            className="inline-block px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+            className="inline-block px-8 py-3 bg-white text-green-700 rounded-lg font-semibold hover:bg-green-50 transition-colors"
           >
-            今すぐ始める
+            今すぐ始める 🌱
           </Link>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-8">
+      <footer className="bg-stone-800 text-stone-400 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p>&copy; 2026 Appli Farm. All rights reserved.</p>
+          <p>&copy; 2026 Appli Farm 🌱 All rights reserved.</p>
         </div>
       </footer>
     </div>

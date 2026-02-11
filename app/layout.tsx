@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Appli Farm - WEBサイト・アプリ投稿プラットフォーム",
-  description: "誰でも簡単に自分が作ったWEBサイトやWEBアプリを登録して公開できるプラットフォーム",
+  title: "Appli Farm - アプリを育てるプラットフォーム",
+  description: "自分が作ったWEBサイトやアプリを公開して、利用者からのフィードバックを受けながら一緒に育てていくプラットフォーム",
 };
 
 export default function RootLayout({

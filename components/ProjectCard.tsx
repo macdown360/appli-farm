@@ -33,8 +33,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               className="object-cover"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-400 text-4xl">
-              🖼️
+            <div className="w-full h-full flex items-center justify-center text-gray-400 text-4xl bg-green-50">
+              🌱
             </div>
           )}
         </div>
@@ -42,7 +42,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         <div className="p-4 flex flex-col flex-grow">
           {/* カテゴリタグ */}
           {project.category && (
-            <span className="inline-block px-2 py-1 text-xs font-semibold text-blue-600 bg-blue-100 rounded-full w-fit mb-2">
+            <span className="inline-block px-2 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full w-fit mb-2">
               {project.category}
             </span>
           )}

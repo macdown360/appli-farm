@@ -95,19 +95,19 @@ export default function NewProjectPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-amber-50">
       <Navbar />
       
       <div className="max-w-3xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <Link href="/" className="text-blue-600 hover:text-blue-700 flex items-center">
+          <Link href="/" className="text-green-600 hover:text-green-700 flex items-center">
             ← 戻る
           </Link>
         </div>
 
         <div className="bg-white shadow rounded-lg p-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-8">
-            新しいプロジェクトを投稿
+            🌱 新しいアプリの種をまく
           </h1>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -127,7 +127,7 @@ export default function NewProjectPage() {
                 required
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
                 placeholder="例: 便利なTodoアプリ"
               />
             </div>
@@ -142,8 +142,8 @@ export default function NewProjectPage() {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={5}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                placeholder="プロジェクトの説明、使用した技術、特徴などを記載してください"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
+                placeholder="アプリの説明、使用した技術、特徴などを記載してください"
               />
             </div>
 
@@ -157,7 +157,7 @@ export default function NewProjectPage() {
                 required
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
                 placeholder="https://example.com"
               />
             </div>
@@ -171,7 +171,7 @@ export default function NewProjectPage() {
                 id="imageUrl"
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
                 placeholder="https://example.com/image.png"
               />
               <p className="mt-1 text-sm text-gray-500">
@@ -187,7 +187,7 @@ export default function NewProjectPage() {
                 id="category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
               >
                 <option value="">選択してください</option>
                 {CATEGORIES.map((cat) => (
@@ -207,7 +207,7 @@ export default function NewProjectPage() {
                 id="tags"
                 value={tags}
                 onChange={(e) => setTags(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
                 placeholder="React, TypeScript, Tailwind (カンマ区切り)"
               />
               <p className="mt-1 text-sm text-gray-500">
@@ -225,9 +225,9 @@ export default function NewProjectPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {loading ? '投稿中...' : '投稿する'}
+                {loading ? '植えています...' : '🌱 種をまく'}
               </button>
             </div>
           </form>

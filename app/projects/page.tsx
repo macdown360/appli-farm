@@ -46,12 +46,12 @@ export default async function ProjectsPage({
   )
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-amber-50">
       <Navbar />
 
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900">プロジェクト一覧</h1>
+          <h1 className="text-4xl font-bold text-gray-900">🌿 みんなの畑</h1>
         </div>
 
         {/* 検索とフィルター */}
@@ -67,7 +67,7 @@ export default async function ProjectsPage({
                 name="search"
                 defaultValue={params.search}
                 placeholder="プロジェクト名や説明で検索..."
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
               />
             </div>
 
@@ -80,7 +80,7 @@ export default async function ProjectsPage({
                   href="/projects"
                   className={`px-4 py-2 rounded-md ${
                     !params.category
-                      ? 'bg-blue-600 text-white'
+                      ? 'bg-green-600 text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
@@ -92,7 +92,7 @@ export default async function ProjectsPage({
                     href={`/projects?category=${cat}`}
                     className={`px-4 py-2 rounded-md ${
                       params.category === cat
-                        ? 'bg-blue-600 text-white'
+                        ? 'bg-green-600 text-white'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                   >
@@ -104,7 +104,7 @@ export default async function ProjectsPage({
 
             <button
               type="submit"
-              className="w-full md:w-auto px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              className="w-full md:w-auto px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
             >
               検索
             </button>
@@ -119,15 +119,15 @@ export default async function ProjectsPage({
             ))}
           </div>
         ) : (
-          <div className="text-center py-12 bg-white rounded-lg border-2 border-dashed border-gray-300">
+          <div className="text-center py-12 bg-white rounded-lg border-2 border-dashed border-green-300">
             <p className="text-gray-500 text-lg mb-4">
-              プロジェクトが見つかりませんでした
+              🌱 まだ何も植えられていません
             </p>
             <Link
               href="/projects/new"
-              className="text-blue-600 hover:text-blue-700 font-medium"
+              className="text-green-600 hover:text-green-700 font-medium"
             >
-              新しいプロジェクトを投稿する
+              最初の種をまく
             </Link>
           </div>
         )}
