@@ -386,24 +386,14 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                 {/* URLコピー */}
                 <button
                   onClick={handleCopyUrl}
-                  className={`group relative flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                  className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
                     copied
                       ? 'bg-green-100 text-green-700 border border-green-200'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200 border border-transparent hover:border-gray-300'
                   }`}
                   title="URLをコピー"
                 >
-                  {copied ? (
-                    <>
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-                      コピーしました
-                    </>
-                  ) : (
-                    <>
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m9.657-3.07a4.5 4.5 0 00-1.242-7.244l-4.5-4.5a4.5 4.5 0 00-6.364 6.364l1.757 1.757" /></svg>
-                      URLをコピー
-                    </>
-                  )}
+                  {copied ? 'コピーしました' : 'URLをコピー'}
                 </button>
               </div>
             </div>

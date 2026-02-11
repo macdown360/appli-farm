@@ -147,8 +147,8 @@ export default function ProfilePage() {
                       </a>
                     )}
                     {profile?.note_url && (
-                      <a href={profile.note_url} target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700 transition-colors" title="Note">
-                        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                      <a href={profile.note_url} target="_blank" rel="noopener noreferrer" className="transition-colors" title="Note">
+                        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="#000"><rect x="0" y="0" width="24" height="24" rx="4"/><path d="M7 16h3V10l5 6h3V7h-3v6l-5-6H7v9z" fill="white"/></svg>
                       </a>
                     )}
                   </div>

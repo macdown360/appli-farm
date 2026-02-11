@@ -278,11 +278,6 @@ export default function ProfileEditPage() {
               {error}
             </div>
           )}
-          {success && (
-            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm">
-              {success}
-            </div>
-          )}
 
           {/* ==================== セクション1: プロフィール画像 ==================== */}
           <section className="bg-white shadow-sm rounded-lg border border-gray-100 overflow-hidden">
@@ -496,8 +491,8 @@ export default function ProfileEditPage() {
                   Note
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-green-600 text-base font-bold">
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2">
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="#000"><rect x="0" y="0" width="24" height="24" rx="4"/><path d="M7 16h3V10l5 6h3V7h-3v6l-5-6H7v9z" fill="white"/></svg>
                   </span>
                   <input
                     type="url"
@@ -529,6 +524,12 @@ export default function ProfileEditPage() {
                 {saving ? '保存中...' : '変更を保存'}
               </button>
             </div>
+
+            {success && (
+              <div className="mt-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm text-center">
+                {success}
+              </div>
+            )}
           </div>
         </form>
       </div>

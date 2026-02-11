@@ -94,7 +94,7 @@ export default function SignupPage() {
 
             <div>
               <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
-                名前
+                表示名
               </label>
               <div className="mt-1">
                 <input
