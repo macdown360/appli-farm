@@ -70,7 +70,7 @@ export default function SignupPage() {
     <div className="min-h-screen bg-green-50 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <Link href="/" className="flex justify-center">
-          <span className="text-2xl md:text-4xl font-bold text-green-700">🌱 Farm</span>
+          <span className="text-2xl md:text-4xl font-bold text-green-700">🌱 Appli Farm</span>
         </Link>
         <h2 className="mt-6 text-center text-2xl md:text-3xl font-bold text-gray-900">
           新規登録
