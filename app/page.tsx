@@ -6,6 +6,12 @@ import ProjectCard from '@/components/ProjectCard'
 export default async function Home() {
   const supabase = await createClient()
   
+  // ユーザーのログイン状態を確認
+  const { data: { user } } = await supabase.auth.getUser()
+  
+  // ログイン状態に応じたリンク先を決定
+  const ctaLink = user ? '/projects/new' : '/auth/signup'
+  
   // 最新のプロジェクトを取得
   const { data: projects } = await supabase
     .from('projects')
@@ -40,7 +46,7 @@ export default async function Home() {
           </p>
           <div className="flex flex-col sm:flex-row sm:justify-center gap-3 sm:gap-4">
             <Link
-              href="/auth/signup"
+              href={ctaLink}
               className="px-6 md:px-8 py-2 md:py-3 bg-white text-green-700 rounded-lg font-semibold hover:bg-green-50 transition-colors text-sm md:text-base"
             >
               無料で種をまく 🌱
@@ -112,7 +118,7 @@ export default async function Home() {
                 🌱 まだ畑には何も植えられていません
               </p>
               <Link
-                href="/auth/signup"
+                href={ctaLink}
                 className="text-green-600 hover:text-green-700 font-medium"
               >
                 最初の種をまきませんか？
@@ -132,7 +138,7 @@ export default async function Home() {
             無料で始められます。今すぐ登録して、みんなと一緒にアプリを育てましょう！
           </p>
           <Link
-            href="/auth/signup"
+            href={ctaLink}
             className="inline-block px-8 py-3 bg-white text-green-700 rounded-lg font-semibold hover:bg-green-50 transition-colors"
           >
             今すぐ始める 🌱
