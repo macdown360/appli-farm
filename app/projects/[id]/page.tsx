@@ -301,10 +301,10 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-amber-50">
+      <div className="min-h-screen bg-[#f6f6f6]">
         <Navbar />
-        <div className="max-w-4xl mx-auto py-12 px-4 text-center">
-          <p className="text-gray-500">読み込み中...</p>
+        <div className="max-w-3xl mx-auto py-12 px-4 text-center">
+          <p className="text-gray-400 text-sm">読み込み中...</p>
         </div>
       </div>
     )
@@ -317,16 +317,16 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
   const isOwner = user?.id === project.user_id
 
   return (
-    <div className="min-h-screen bg-amber-50">
+    <div className="min-h-screen bg-[#f6f6f6]">
       <Navbar />
-      <div className="max-w-4xl mx-auto py-8 md:py-12 px-4 sm:px-6 lg:px-8">
-        <div className="mb-6">
-          <Link href="/projects" className="text-green-600 hover:text-green-700 flex items-center text-sm md:text-base">
-            ← 作品一覧に戻る
+      <div className="max-w-3xl mx-auto py-8 md:py-10 px-4 sm:px-6">
+        <div className="mb-4">
+          <Link href="/projects" className="text-sm text-gray-400 hover:text-gray-600 transition-colors">
+            ← 戻る
           </Link>
         </div>
 
-        <div className="bg-white shadow rounded-lg overflow-hidden">
+        <article className="bg-white rounded-xl border border-gray-100 overflow-hidden">
           {/* 画像 */}
           {project.image_url && (
             <div className="relative h-48 md:h-96">
@@ -339,14 +339,14 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
             </div>
           )}
 
-          <div className="p-4 md:p-8">
+          <div className="p-5 md:p-8">
             {/* カテゴリ */}
             {project.categories && project.categories.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-1.5 mb-3">
                 {project.categories.map((cat) => (
                   <span
                     key={cat}
-                    className="inline-block px-3 py-1 text-sm font-semibold text-green-700 bg-green-100 rounded-full"
+                    className="inline-block px-2.5 py-0.5 text-xs text-gray-500 bg-gray-100 rounded-full"
                   >
                     {cat}
                   </span>
@@ -355,24 +355,24 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
             )}
 
             {/* タイトル */}
-            <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h1 className="text-xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight">
               {project.title}
             </h1>
 
             {isOwner && (
-              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mb-6">
+              <div className="flex gap-2 mb-5">
                 <Link
                   href={`/projects/${project.id}/edit`}
-                  className="px-4 py-2 border border-green-300 text-green-700 rounded-md hover:bg-green-50 text-sm md:text-base text-center"
+                  className="px-4 py-1.5 border border-gray-200 text-gray-600 rounded-full text-xs hover:bg-gray-50 transition-colors"
                 >
-                  編集する
+                  編集
                 </Link>
                 <button
                   type="button"
                   onClick={handleDelete}
-                  className="px-4 py-2 border border-red-300 text-red-600 rounded-md hover:bg-red-50 text-sm md:text-base"
+                  className="px-4 py-1.5 border border-gray-200 text-red-500 rounded-full text-xs hover:bg-red-50 transition-colors"
                 >
-                  削除する
+                  削除
                 </button>
               </div>
             )}
@@ -380,48 +380,45 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
             {/* 作成者情報 */}
             <Link 
               href={`/profile/${project.user_id}`}
-              className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6 hover:opacity-70 transition-opacity w-fit"
+              className="flex items-center gap-2.5 mb-6 hover:opacity-70 transition-opacity w-fit"
             >
               {project.profiles?.avatar_url ? (
                 <Image
                   src={project.profiles.avatar_url}
-                  alt={project.profiles.full_name || '匿名ユーザー'}
-                  width={40}
-                  height={40}
+                  alt={project.profiles.full_name || '匿名'}
+                  width={32}
+                  height={32}
                   className="rounded-full flex-shrink-0"
                 />
               ) : (
-                <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0 text-gray-400 text-sm">
                   👤
                 </div>
               )}
               <div>
-                <p className="font-medium text-gray-900 text-sm md:text-base">
-                  {project.profiles?.full_name || '匿名ユーザー'}
+                <p className="text-sm font-medium text-gray-900">
+                  {project.profiles?.full_name || '匿名'}
                 </p>
-                <p className="text-xs md:text-sm text-gray-500">
-                  公開日: {new Date(project.created_at).toLocaleDateString('ja-JP')}
-                </p>
-                <p className="text-xs md:text-sm text-gray-500">
-                  最終更新日: {new Date(project.updated_at).toLocaleDateString('ja-JP')}
+                <p className="text-xs text-gray-400">
+                  {new Date(project.created_at).toLocaleDateString('ja-JP')}
                 </p>
               </div>
             </Link>
 
             {/* 説明 */}
-            <div className="prose max-w-none mb-6">
-              <p className="text-sm md:text-base text-gray-700 whitespace-pre-wrap">
+            <div className="mb-6">
+              <p className="text-sm md:text-base text-gray-700 whitespace-pre-wrap leading-relaxed">
                 {project.description}
               </p>
             </div>
 
             {/* タグ */}
             {project.tags && project.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="flex flex-wrap gap-1.5 mb-6">
                 {project.tags.map((tag, index) => (
                   <span
                     key={index}
-                    className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-full"
+                    className="px-2.5 py-0.5 text-xs text-gray-500 bg-gray-100 rounded-full"
                   >
                     #{tag}
                   </span>
@@ -430,71 +427,70 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
             )}
 
             {/* アクションボタン */}
-            <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200">
+            <div className="flex flex-col sm:flex-row gap-3 pt-5 border-t border-gray-100">
               <a
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 px-4 md:px-6 py-2 md:py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 text-center text-sm md:text-base"
+                className="flex-1 px-5 py-2.5 bg-emerald-500 text-white rounded-full font-medium hover:bg-emerald-600 text-center text-sm transition-colors"
               >
-                🚀 サイトを開く
+                サイトを開く
               </a>
               
               <button
                 onClick={handleLike}
-                className={`px-4 md:px-6 py-2 md:py-3 rounded-lg font-medium border-2 transition-colors text-sm md:text-base whitespace-nowrap ${
+                className={`px-5 py-2.5 rounded-full font-medium border transition-colors text-sm whitespace-nowrap ${
                   isLiked
-                    ? 'border-red-500 text-red-500 bg-red-50'
-                    : 'border-gray-300 text-gray-700 hover:border-red-500 hover:text-red-500'
+                    ? 'border-red-200 text-red-500 bg-red-50'
+                    : 'border-gray-200 text-gray-600 hover:border-red-200 hover:text-red-500'
                 }`}
               >
-                {isLiked ? '❤️' : '🤍'} {project.likes_count}
+                {isLiked ? '❤️' : '♡'} {project.likes_count}
               </button>
             </div>
 
             {/* シェアボタン */}
-            <div className="mt-6 pt-6 border-t border-gray-200">
-              <p className="text-xs md:text-sm font-medium text-gray-700 mb-4">シェアする</p>
-              <div className="flex flex-wrap items-center gap-2 md:gap-3">
+            <div className="mt-5 pt-5 border-t border-gray-100">
+              <p className="text-xs text-gray-400 mb-3">シェア</p>
+              <div className="flex flex-wrap items-center gap-2">
                 {/* X (Twitter) */}
                 <button
                   onClick={() => handleShare('twitter')}
-                  className="group relative w-10 h-10 md:w-11 md:h-11 rounded-full bg-gray-100 hover:bg-black text-gray-600 hover:text-white flex items-center justify-center transition-all duration-200 hover:scale-110 hover:shadow-md flex-shrink-0"
-                  title="X (Twitter) でシェア"
+                  className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 flex items-center justify-center transition-colors flex-shrink-0"
+                  title="X"
                 >
-                  <svg className="w-4 md:w-5 h-4 md:h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 </button>
 
                 {/* Facebook */}
                 <button
                   onClick={() => handleShare('facebook')}
-                  className="group relative w-10 h-10 md:w-11 md:h-11 rounded-full bg-gray-100 hover:bg-[#1877F2] text-gray-600 hover:text-white flex items-center justify-center transition-all duration-200 hover:scale-110 hover:shadow-md flex-shrink-0"
-                  title="Facebook でシェア"
+                  className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 flex items-center justify-center transition-colors flex-shrink-0"
+                  title="Facebook"
                 >
-                  <svg className="w-4 md:w-5 h-4 md:h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                 </button>
 
                 {/* LINE */}
                 <button
                   onClick={() => handleShare('line')}
-                  className="group relative w-10 h-10 md:w-11 md:h-11 rounded-full bg-gray-100 hover:bg-[#06C755] text-gray-600 hover:text-white flex items-center justify-center transition-all duration-200 hover:scale-110 hover:shadow-md flex-shrink-0"
-                  title="LINE でシェア"
+                  className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 flex items-center justify-center transition-colors flex-shrink-0"
+                  title="LINE"
                 >
-                  <svg className="w-4 md:w-5 h-4 md:h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .348-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .349-.281.63-.63.63h-2.386c-.345 0-.627-.281-.627-.63V8.108c0-.345.282-.627.627-.627h2.386c.349 0 .63.281.63.63 0 .346-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.627-.631.627-.346 0-.626-.283-.626-.627V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.627.63-.627.345 0 .63.282.63.627v4.771zm-5.741 0c0 .344-.282.627-.631.627-.345 0-.627-.283-.627-.627V8.108c0-.345.282-.627.627-.627.349 0 .631.282.631.627v4.771zm-2.466.627H4.917c-.345 0-.63-.283-.63-.627V8.108c0-.345.285-.627.63-.627.349 0 .63.282.63.627v4.141h1.756c.348 0 .629.283.629.63 0 .346-.281.631-.629.631M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .348-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .349-.281.63-.63.63h-2.386c-.345 0-.627-.281-.627-.63V8.108c0-.345.282-.627.627-.627h2.386c.349 0 .63.281.63.63 0 .346-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.627-.631.627-.346 0-.626-.283-.626-.627V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.627.63-.627.345 0 .63.282.63.627v4.771zm-5.741 0c0 .344-.282.627-.631.627-.345 0-.627-.283-.627-.627V8.108c0-.345.282-.627.627-.627.349 0 .631.282.631.627v4.771zm-2.466.627H4.917c-.345 0-.63-.283-.63-.627V8.108c0-.345.285-.627.63-.627.349 0 .63.282.63.627v4.141h1.756c.348 0 .629.283.629.63 0 .346-.281.631-.629.631M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
                 </button>
 
                 {/* 区切り線 */}
-                <div className="hidden md:block w-px h-8 bg-gray-200 mx-1"></div>
+                <div className="hidden md:block w-px h-6 bg-gray-200 mx-1"></div>
 
                 {/* URLコピー */}
                 <button
                   onClick={handleCopyUrl}
-                  className={`px-3 md:px-4 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
+                  className={`px-3 py-1.5 rounded-full text-xs transition-colors whitespace-nowrap flex-shrink-0 ${
                     copied
-                      ? 'bg-green-100 text-green-700 border border-green-200'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200 border border-transparent hover:border-gray-300'
+                      ? 'bg-emerald-50 text-emerald-600'
+                      : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
                   }`}
-                  title="URLをコピー"
                 >
                   {copied ? 'コピーしました' : 'URLをコピー'}
                 </button>
@@ -502,40 +498,40 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
             </div>
 
             {/* コメントセクション */}
-            <div className="mt-8 pt-8 border-t border-gray-200">
-              <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">
-                💬 コメント ({comments.length})
+            <div className="mt-6 pt-6 border-t border-gray-100">
+              <h2 className="text-base font-bold text-gray-900 mb-5">
+                コメント ({comments.length})
               </h2>
 
               {/* コメント投稿フォーム */}
               {user ? (
-                <form onSubmit={handleCommentSubmit} className="mb-8">
+                <form onSubmit={handleCommentSubmit} className="mb-6">
                   <textarea
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
-                    placeholder="感想やフィードバック、改善点などを投稿してください..."
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none text-sm md:text-base"
-                    rows={4}
+                    placeholder="コメントを書く..."
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none text-sm"
+                    rows={3}
                     disabled={submittingComment}
                   />
-                  <div className="mt-3 flex justify-end">
+                  <div className="mt-2 flex justify-end">
                     <button
                       type="submit"
                       disabled={submittingComment || !newComment.trim()}
-                      className="px-6 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors text-sm md:text-base"
+                      className="px-5 py-1.5 bg-emerald-500 text-white rounded-full text-sm font-medium hover:bg-emerald-600 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors"
                     >
-                      {submittingComment ? '投稿中...' : 'コメントを投稿'}
+                      {submittingComment ? '投稿中...' : '投稿'}
                     </button>
                   </div>
                 </form>
               ) : (
-                <div className="mb-8 p-4 bg-gray-50 rounded-lg text-center">
-                  <p className="text-sm md:text-base text-gray-600 mb-3">
+                <div className="mb-6 p-4 bg-gray-50 rounded-xl text-center">
+                  <p className="text-sm text-gray-500 mb-3">
                     コメントを投稿するにはログインが必要です
                   </p>
                   <Link
                     href="/auth/login"
-                    className="inline-block px-6 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors text-sm md:text-base"
+                    className="inline-block px-5 py-1.5 bg-emerald-500 text-white rounded-full text-sm font-medium hover:bg-emerald-600 transition-colors"
                   >
                     ログイン
                   </Link>
@@ -543,45 +539,43 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
               )}
 
               {/* コメントリスト */}
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {comments.length === 0 ? (
-                  <p className="text-center text-gray-500 py-8 text-sm md:text-base">
-                    まだコメントがありません。最初のコメントを投稿してみましょう！
+                  <p className="text-center text-gray-400 py-8 text-sm">
+                    まだコメントがありません
                   </p>
                 ) : (
                   comments.map((comment) => (
-                    <div key={comment.id} className="bg-gray-50 rounded-lg p-4 md:p-6">
-                      <div className="flex items-start justify-between mb-3">
+                    <div key={comment.id} className="border-b border-gray-100 pb-4 last:border-0">
+                      <div className="flex items-start justify-between mb-2">
                         <Link 
                           href={`/profile/${comment.user_id}`}
-                          className="flex items-center space-x-3 hover:opacity-70 transition-opacity"
+                          className="flex items-center space-x-2 hover:opacity-70 transition-opacity"
                         >
                           {comment.profiles?.avatar_url ? (
                             <Image
                               src={comment.profiles.avatar_url}
                               alt={comment.profiles.full_name || 'User'}
-                              width={40}
-                              height={40}
+                              width={28}
+                              height={28}
                               className="rounded-full"
                             />
                           ) : (
-                            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-green-200 flex items-center justify-center">
-                              <span className="text-green-700 font-bold text-sm md:text-base">
+                            <div className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center">
+                              <span className="text-gray-400 text-xs">
                                 {comment.profiles?.full_name?.[0]?.toUpperCase() || '?'}
                               </span>
                             </div>
                           )}
                           <div>
-                            <p className="font-medium text-gray-900 text-sm md:text-base">
-                              {comment.profiles?.full_name || '匿名ユーザー'}
+                            <p className="text-sm font-medium text-gray-900">
+                              {comment.profiles?.full_name || '匿名'}
                             </p>
-                            <p className="text-xs md:text-sm text-gray-500">
+                            <p className="text-xs text-gray-400">
                               {new Date(comment.created_at).toLocaleDateString('ja-JP', {
                                 year: 'numeric',
                                 month: 'long',
                                 day: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit'
                               })}
                             </p>
                           </div>
@@ -589,13 +583,13 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                         {user && user.id === comment.user_id && (
                           <button
                             onClick={() => handleCommentDelete(comment.id)}
-                            className="text-red-600 hover:text-red-700 text-xs md:text-sm font-medium"
+                            className="text-gray-400 hover:text-red-500 text-xs transition-colors"
                           >
                             削除
                           </button>
                         )}
                       </div>
-                      <p className="text-sm md:text-base text-gray-700 whitespace-pre-wrap">
+                      <p className="text-sm text-gray-700 whitespace-pre-wrap pl-9">
                         {comment.content}
                       </p>
                     </div>
@@ -604,7 +598,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
               </div>
             </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   )

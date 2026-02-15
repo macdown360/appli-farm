@@ -67,43 +67,43 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-amber-50">
+    <div className="min-h-screen bg-[#f6f6f6]">
       <Navbar />
 
-      <div className="max-w-2xl mx-auto py-8 md:py-12 px-4 sm:px-6 lg:px-8">
-        <div className="mb-6">
-          <Link href="/" className="text-green-600 hover:text-green-700 flex items-center text-sm md:text-base">
-            ← ホームに戻る
+      <div className="max-w-2xl mx-auto py-8 md:py-10 px-4 sm:px-6">
+        <div className="mb-4">
+          <Link href="/" className="text-sm text-gray-400 hover:text-gray-600 transition-colors">
+            ← 戻る
           </Link>
         </div>
 
-        <div className="bg-white shadow rounded-lg overflow-hidden">
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 px-6 md:px-8 py-8 md:py-12">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-              📧 お問い合わせ
+        <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+          <div className="px-5 md:px-8 py-6 md:py-8 border-b border-gray-100">
+            <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-1">
+              お問い合わせ
             </h1>
-            <p className="text-gray-600 text-sm md:text-base">
+            <p className="text-gray-400 text-sm">
               ご意見・ご質問やバグ報告など、お気軽にお問い合わせください。
             </p>
           </div>
 
-          <div className="p-6 md:p-8">
+          <div className="p-5 md:p-8">
             {submitted && (
-              <div className="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm md:text-base">
-                ✓ お問い合わせありがとうございます。送信いたしました。
+              <div className="mb-5 bg-emerald-50 border border-emerald-200 text-emerald-600 px-4 py-3 rounded-xl text-sm">
+                お問い合わせありがとうございます。送信いたしました。
               </div>
             )}
 
             {error && (
-              <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm md:text-base">
-                ⚠ {error}
+              <div className="mb-5 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">
+                {error}
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-5">
               {/* 名前 */}
               <div>
-                <label htmlFor="name" className="block text-sm md:text-base font-medium text-gray-700 mb-2">
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1.5">
                   お名前 <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -113,14 +113,14 @@ export default function ContactPage() {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="山田太郎"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors text-sm md:text-base"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-colors text-sm"
                   required
                 />
               </div>
 
               {/* メールアドレス */}
               <div>
-                <label htmlFor="email" className="block text-sm md:text-base font-medium text-gray-700 mb-2">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">
                   メールアドレス <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -130,14 +130,14 @@ export default function ContactPage() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="example@example.com"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors text-sm md:text-base"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-colors text-sm"
                   required
                 />
               </div>
 
               {/* 件名 */}
               <div>
-                <label htmlFor="subject" className="block text-sm md:text-base font-medium text-gray-700 mb-2">
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1.5">
                   件名 <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -147,14 +147,14 @@ export default function ContactPage() {
                   value={formData.subject}
                   onChange={handleChange}
                   placeholder="ご質問やご意見をお聞かせください"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors text-sm md:text-base"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-colors text-sm"
                   required
                 />
               </div>
 
               {/* メッセージ */}
               <div>
-                <label htmlFor="message" className="block text-sm md:text-base font-medium text-gray-700 mb-2">
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1.5">
                   メッセージ <span className="text-red-500">*</span>
                 </label>
                 <textarea
@@ -164,7 +164,7 @@ export default function ContactPage() {
                   onChange={handleChange}
                   placeholder="詳しくお聞かせください"
                   rows={6}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors text-sm md:text-base resize-none"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-colors text-sm resize-none"
                   required
                 />
               </div>
@@ -173,15 +173,15 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base"
+                className="w-full px-6 py-2.5 bg-emerald-500 text-white rounded-full font-medium hover:bg-emerald-600 transition-colors disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-sm"
               >
-                {loading ? '送信中...' : '📧 送信する'}
+                {loading ? '送信中...' : '送信する'}
               </button>
             </form>
 
             {/* 補足情報 */}
-            <div className="mt-8 pt-8 border-t border-gray-200">
-              <p className="text-xs md:text-sm text-gray-500 text-center">
+            <div className="mt-6 pt-6 border-t border-gray-100">
+              <p className="text-xs text-gray-400 text-center">
                 通常、お問い合わせへのご返信は営業日2日以内にさせていただきます。
               </p>
             </div>

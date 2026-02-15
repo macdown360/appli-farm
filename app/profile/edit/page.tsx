@@ -249,48 +249,43 @@ export default function ProfileEditPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-amber-50">
+      <div className="min-h-screen bg-[#f6f6f6]">
         <Navbar />
         <div className="max-w-3xl mx-auto py-12 px-4 text-center">
-          <p className="text-gray-500">読み込み中...</p>
+          <p className="text-gray-400 text-sm">読み込み中...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-amber-50">
+    <div className="min-h-screen bg-[#f6f6f6]">
       <Navbar />
 
-      <div className="max-w-3xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto py-8 px-4 sm:px-6">
         <div className="mb-6">
-          <Link href="/profile" className="text-green-600 hover:text-green-700 inline-flex items-center text-sm">
-            ← プロフィールに戻る
+          <Link href="/profile" className="text-sm text-gray-400 hover:text-gray-600 transition-colors">
+            ← 戻る
           </Link>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mt-3">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mt-3">
             プロフィールを編集
           </h1>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">
               {error}
             </div>
           )}
 
           {/* ==================== セクション1: プロフィール画像 ==================== */}
-          <section className="bg-white shadow-sm rounded-lg border border-gray-100 overflow-hidden">
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 px-6 py-4 border-b border-gray-100">
-              <div className="flex items-center gap-3">
-                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-300 text-white text-sm font-bold">1</span>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-900">プロフィール画像</h2>
-                  <p className="text-xs text-gray-500">あなたの顔をアピールしましょう（任意）</p>
-                </div>
-              </div>
+          <section className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+            <div className="px-5 py-4 border-b border-gray-100">
+              <h2 className="text-sm font-bold text-gray-900">プロフィール画像</h2>
+              <p className="text-xs text-gray-400 mt-0.5">あなたの顔をアピールしましょう（任意）</p>
             </div>
-            <div className="p-6">
+            <div className="p-5">
               <div className="flex items-center gap-6">
                 {/* 現在のアバタープレビュー */}
                 <div className="flex-shrink-0">
@@ -324,10 +319,10 @@ export default function ProfileEditPage() {
                     onDragLeave={handleDrag}
                     onDragOver={handleDrag}
                     onDrop={handleDrop}
-                    className={`relative border-2 border-dashed rounded-lg p-4 text-center cursor-pointer transition-colors ${
+                    className={`relative border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-colors ${
                       isDragActive
-                        ? 'border-green-500 bg-green-50'
-                        : 'border-gray-300 bg-gray-50 hover:border-green-400 hover:bg-green-50'
+                        ? 'border-emerald-500 bg-emerald-50'
+                        : 'border-gray-200 bg-gray-50 hover:border-emerald-400 hover:bg-emerald-50/30'
                     }`}
                     onClick={() => fileInputRef.current?.click()}
                   >
@@ -355,17 +350,12 @@ export default function ProfileEditPage() {
           </section>
 
           {/* ==================== セクション2: 基本情報 ==================== */}
-          <section className="bg-white shadow-sm rounded-lg border border-gray-100 overflow-hidden">
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 px-6 py-4 border-b border-gray-100">
-              <div className="flex items-center gap-3">
-                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-green-600 text-white text-sm font-bold">2</span>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-900">基本情報</h2>
-                  <p className="text-xs text-gray-500">名前や自己紹介を入力してください</p>
-                </div>
-              </div>
+          <section className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+            <div className="px-5 py-4 border-b border-gray-100">
+              <h2 className="text-sm font-bold text-gray-900">基本情報</h2>
+              <p className="text-xs text-gray-400 mt-0.5">名前や自己紹介を入力してください</p>
             </div>
-            <div className="p-6 space-y-5">
+            <div className="p-5 space-y-5">
               <div>
                 <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
                   名前
@@ -375,7 +365,7 @@ export default function ProfileEditPage() {
                   id="fullName"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-colors text-sm"
                   placeholder="表示名"
                 />
               </div>
@@ -389,7 +379,7 @@ export default function ProfileEditPage() {
                   rows={3}
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors resize-y"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-colors resize-y text-sm"
                   placeholder="簡単な自己紹介を入力してください"
                 />
               </div>
@@ -405,7 +395,7 @@ export default function ProfileEditPage() {
                     id="website"
                     value={website}
                     onChange={(e) => setWebsite(e.target.value)}
-                    className="w-full pl-9 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                    className="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-colors text-sm"
                     placeholder="https://example.com"
                   />
                 </div>
@@ -414,17 +404,12 @@ export default function ProfileEditPage() {
           </section>
 
           {/* ==================== セクション3: SNSリンク ==================== */}
-          <section className="bg-white shadow-sm rounded-lg border border-gray-100 overflow-hidden">
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 px-6 py-4 border-b border-gray-100">
-              <div className="flex items-center gap-3">
-                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-300 text-white text-sm font-bold">3</span>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-900">SNSリンク</h2>
-                  <p className="text-xs text-gray-500">各サービスのプロフィールURLを入力してください（任意）</p>
-                </div>
-              </div>
+          <section className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+            <div className="px-5 py-4 border-b border-gray-100">
+              <h2 className="text-sm font-bold text-gray-900">SNSリンク</h2>
+              <p className="text-xs text-gray-400 mt-0.5">各サービスのプロフィールURLを入力してください（任意）</p>
             </div>
-            <div className="p-6 space-y-4">
+            <div className="p-5 space-y-4">
               {/* GitHub */}
               <div>
                 <label htmlFor="githubUrl" className="block text-sm font-medium text-gray-700 mb-1">
@@ -439,7 +424,7 @@ export default function ProfileEditPage() {
                     id="githubUrl"
                     value={githubUrl}
                     onChange={(e) => setGithubUrl(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-colors text-sm"
                     placeholder="https://github.com/username"
                   />
                 </div>
@@ -459,7 +444,7 @@ export default function ProfileEditPage() {
                     id="xUrl"
                     value={xUrl}
                     onChange={(e) => setXUrl(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-colors text-sm"
                     placeholder="https://x.com/username"
                   />
                 </div>
@@ -479,7 +464,7 @@ export default function ProfileEditPage() {
                     id="linkedinUrl"
                     value={linkedinUrl}
                     onChange={(e) => setLinkedinUrl(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-colors text-sm"
                     placeholder="https://linkedin.com/in/username"
                   />
                 </div>
@@ -499,7 +484,7 @@ export default function ProfileEditPage() {
                     id="noteUrl"
                     value={noteUrl}
                     onChange={(e) => setNoteUrl(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-colors text-sm"
                     placeholder="https://note.com/username"
                   />
                 </div>
@@ -508,25 +493,25 @@ export default function ProfileEditPage() {
           </section>
 
           {/* ==================== 送信ボタン ==================== */}
-          <div className="bg-white shadow-sm rounded-lg border border-gray-100 p-6">
+          <div className="bg-white rounded-xl border border-gray-100 p-5">
             <div className="flex flex-col sm:flex-row items-center justify-end gap-3">
               <Link
                 href="/profile"
-                className="w-full sm:w-auto text-center px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors text-sm font-medium"
+                className="w-full sm:w-auto text-center px-5 py-2 border border-gray-200 rounded-full text-gray-600 hover:bg-gray-50 transition-colors text-sm"
               >
                 キャンセル
               </Link>
               <button
                 type="submit"
                 disabled={saving}
-                className="w-full sm:w-auto px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm font-bold shadow-sm"
+                className="w-full sm:w-auto px-6 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors text-sm font-medium"
               >
                 {saving ? '保存中...' : '変更を保存'}
               </button>
             </div>
 
             {success && (
-              <div className="mt-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm text-center">
+              <div className="mt-4 bg-emerald-50 border border-emerald-200 text-emerald-600 px-4 py-3 rounded-xl text-sm text-center">
                 {success}
               </div>
             )}

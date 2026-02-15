@@ -49,42 +49,36 @@ export default async function ProjectsPage({
   )
 
   return (
-    <div className="min-h-screen bg-amber-50">
+    <div className="min-h-screen bg-[#f6f6f6]">
       <Navbar />
 
-      <div className="max-w-7xl mx-auto py-8 md:py-12 px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-8 mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">✨ みんの作品</h1>
+      <div className="max-w-5xl mx-auto py-8 md:py-10 px-4 sm:px-6">
+        <div className="mb-6">
+          <h1 className="text-xl md:text-2xl font-bold text-gray-900">さがす</h1>
         </div>
 
         {/* 検索とフィルター */}
-        <div className="mb-8 bg-white p-4 md:p-6 rounded-lg shadow">
+        <div className="mb-6 bg-white p-4 md:p-5 rounded-xl border border-gray-100">
           <form method="get" className="space-y-4">
             <div>
-              <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-2">
-                検索
-              </label>
               <input
                 type="text"
                 id="search"
                 name="search"
                 defaultValue={params.search}
-                placeholder="プロジェクト名や説明で検索..."
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-sm"
+                placeholder="キーワードで検索..."
+                className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                カテゴリ
-              </label>
               <div className="flex flex-wrap gap-2">
                 <Link
                   href="/projects"
-                  className={`px-3 md:px-4 py-2 rounded-md text-sm ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                     !params.category
-                      ? 'bg-green-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? 'bg-gray-900 text-white'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
                   すべて
@@ -93,10 +87,10 @@ export default async function ProjectsPage({
                   <Link
                     key={cat}
                     href={`/projects?category=${cat}`}
-                    className={`px-3 md:px-4 py-2 rounded-md text-sm ${
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                       params.category === cat
-                        ? 'bg-green-600 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-gray-900 text-white'
+                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
                   >
                     {cat}
@@ -107,7 +101,7 @@ export default async function ProjectsPage({
 
             <button
               type="submit"
-              className="w-full md:w-auto px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+              className="px-6 py-2 bg-emerald-500 text-white rounded-full text-sm font-medium hover:bg-emerald-600 transition-colors"
             >
               検索
             </button>
@@ -116,21 +110,21 @@ export default async function ProjectsPage({
 
         {/* プロジェクト一覧 */}
         {projects && projects.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {projects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-12 bg-white rounded-lg border-2 border-dashed border-green-300">
-            <p className="text-gray-500 text-base md:text-lg mb-4">
-              ✨ まだ作品が公開されていません
+          <div className="text-center py-16">
+            <p className="text-gray-400 text-sm mb-4">
+              まだ作品が投稿されていません
             </p>
             <Link
               href="/projects/new"
-              className="text-green-600 hover:text-green-700 font-medium text-sm md:text-base"
+              className="text-emerald-500 hover:text-emerald-600 text-sm font-medium"
             >
-              最初の作品を公開する
+              最初の作品を投稿する →
             </Link>
           </div>
         )}

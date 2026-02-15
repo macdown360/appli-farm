@@ -367,10 +367,10 @@ export default function ProjectEditPage({ params }: { params: Promise<{ id: stri
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-amber-50">
+      <div className="min-h-screen bg-[#f6f6f6]">
         <Navbar />
         <div className="max-w-3xl mx-auto py-12 px-4 text-center">
-          <p className="text-gray-500">読み込み中...</p>
+          <p className="text-gray-400 text-sm">読み込み中...</p>
         </div>
       </div>
     )
@@ -381,40 +381,38 @@ export default function ProjectEditPage({ params }: { params: Promise<{ id: stri
   }
 
   return (
-    <div className="min-h-screen bg-amber-50">
+    <div className="min-h-screen bg-[#f6f6f6]">
       <Navbar />
 
-      <div className="max-w-3xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto py-8 px-4 sm:px-6">
         {/* ヘッダー */}
         <div className="mb-6">
-          <Link href={`/projects/${project.id}`} className="text-green-600 hover:text-green-700 inline-flex items-center text-sm">
-            ← プロジェクトに戻る
+          <Link href={`/projects/${project.id}`} className="text-sm text-gray-400 hover:text-gray-600 transition-colors">
+            ← 戻る
           </Link>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mt-3">
-            🌱 プロジェクトを編集
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mt-3">
+            作品を編集
           </h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <p className="text-gray-400 text-sm mt-1">
             アプリの情報を更新しましょう
           </p>
         </div>
 
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">
               {error}
             </div>
           )}
 
           {/* ==================== セクション1: 基本情報 ==================== */}
-          <section className="bg-white shadow-sm rounded-lg border border-gray-100 overflow-hidden">
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 px-6 py-4 border-b border-gray-100">
-              <div className="flex items-center gap-3">
-                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-green-600 text-white text-sm font-bold">1</span>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-900">基本情報</h2>
-                  <p className="text-xs text-gray-500">アプリの名前・説明・URLを入力してください</p>
-                </div>
+          <section className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+            <div className="px-5 py-4 border-b border-gray-100">
+              <h2 className="text-sm font-bold text-gray-900">基本情報</h2>
+              <p className="text-xs text-gray-400 mt-0.5">アプリの名前・説明・URLを入力してください</p>
+            </div>
+            <div className="p-5 space-y-5">
               </div>
             </div>
             <div className="p-6 space-y-5">
@@ -430,7 +428,7 @@ export default function ProjectEditPage({ params }: { params: Promise<{ id: stri
                   maxLength={TITLE_MAX}
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-colors text-sm"
                   placeholder="例: 便利なTodoアプリ"
                 />
                 <div className="flex justify-between mt-1">
@@ -453,7 +451,7 @@ export default function ProjectEditPage({ params }: { params: Promise<{ id: stri
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   rows={4}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors resize-y"
+                  className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-colors resize-y text-sm"
                   placeholder="どんなアプリですか？特徴や使い方を書いてみましょう"
                 />
                 <div className="flex justify-between mt-1">
@@ -477,7 +475,7 @@ export default function ProjectEditPage({ params }: { params: Promise<{ id: stri
                     required
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
-                    className="w-full pl-9 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                    className="w-full pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-colors text-sm"
                     placeholder="https://example.com"
                   />
                 </div>
@@ -487,17 +485,12 @@ export default function ProjectEditPage({ params }: { params: Promise<{ id: stri
           </section>
 
           {/* ==================== セクション2: サムネイル画像 ==================== */}
-          <section className="bg-white shadow-sm rounded-lg border border-gray-100 overflow-hidden">
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 px-6 py-4 border-b border-gray-100">
-              <div className="flex items-center gap-3">
-                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-300 text-white text-sm font-bold">2</span>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-900">サムネイル画像</h2>
-                  <p className="text-xs text-gray-500">アプリを視覚的にアピールしましょう（任意）</p>
-                </div>
-              </div>
+          <section className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+            <div className="px-5 py-4 border-b border-gray-100">
+              <h2 className="text-sm font-bold text-gray-900">サムネイル画像</h2>
+              <p className="text-xs text-gray-400 mt-0.5">アプリを視覚的にアピールしましょう（任意）</p>
             </div>
-            <div className="p-6">
+            <div className="p-5">
               {imagePreview && (
                 <div className="mb-4 relative w-full h-48 rounded-lg overflow-hidden bg-gray-100">
                   <Image
@@ -528,10 +521,10 @@ export default function ProjectEditPage({ params }: { params: Promise<{ id: stri
                 onDragLeave={handleDrag}
                 onDragOver={handleDrag}
                 onDrop={handleDrop}
-                className={`relative border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors ${
+                className={`relative border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-colors ${
                   isDragActive
-                    ? 'border-green-500 bg-green-50'
-                    : 'border-gray-300 bg-gray-50 hover:border-green-400 hover:bg-green-50'
+                    ? 'border-emerald-500 bg-emerald-50'
+                    : 'border-gray-200 bg-gray-50 hover:border-emerald-400 hover:bg-emerald-50/30'
                 }`}
                 onClick={() => fileInputRef.current?.click()}
               >
@@ -558,17 +551,12 @@ export default function ProjectEditPage({ params }: { params: Promise<{ id: stri
           </section>
 
           {/* ==================== セクション3: カテゴリ ==================== */}
-          <section className="bg-white shadow-sm rounded-lg border border-gray-100 overflow-hidden">
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 px-6 py-4 border-b border-gray-100">
-              <div className="flex items-center gap-3">
-                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-green-600 text-white text-sm font-bold">3</span>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-900">カテゴリ <span className="text-red-500 text-sm">*</span></h2>
-                  <p className="text-xs text-gray-500">アプリの分類を選択してください（複数選択可）</p>
-                </div>
-              </div>
+          <section className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+            <div className="px-5 py-4 border-b border-gray-100">
+              <h2 className="text-sm font-bold text-gray-900">カテゴリ <span className="text-red-500 text-xs">*</span></h2>
+              <p className="text-xs text-gray-400 mt-0.5">アプリの分類を選択してください（複数選択可）</p>
             </div>
-            <div className="p-6">
+            <div className="p-5">
               {/* 選択中のカテゴリバッジ */}
               {categories.length > 0 && (
                 <div className="mb-4 pb-4 border-b border-gray-100">
@@ -579,10 +567,10 @@ export default function ProjectEditPage({ params }: { params: Promise<{ id: stri
                         key={cat}
                         type="button"
                         onClick={() => toggleCategory(cat)}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium hover:bg-red-100 hover:text-red-700 transition-colors"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-medium hover:bg-red-50 hover:text-red-600 transition-colors"
                       >
                         {cat}
-                        <span className="text-green-500 hover:text-red-500">✕</span>
+                        <span className="text-emerald-400 hover:text-red-500">✕</span>
                       </button>
                     ))}
                   </div>
@@ -595,7 +583,7 @@ export default function ProjectEditPage({ params }: { params: Promise<{ id: stri
                   const isOpen = openCatGroups.has(group.label)
                   const selectedCount = group.options.filter((o) => categories.includes(o)).length
                   return (
-                    <div key={group.label} className="rounded-lg border border-gray-200 overflow-hidden">
+                    <div key={group.label} className="rounded-xl border border-gray-200 overflow-hidden">
                       <button
                         type="button"
                         onClick={() => toggleAccordion(openCatGroups, setOpenCatGroups, group.label)}
@@ -603,9 +591,9 @@ export default function ProjectEditPage({ params }: { params: Promise<{ id: stri
                       >
                         <span className="flex items-center gap-2">
                           <span>{group.icon}</span>
-                          <span className="text-sm font-semibold text-gray-700">{group.label}</span>
+                          <span className="text-sm font-medium text-gray-700">{group.label}</span>
                           {selectedCount > 0 && (
-                            <span className="ml-1 bg-green-600 text-white text-xs font-bold rounded-full px-2 py-0.5">
+                            <span className="ml-1 bg-emerald-500 text-white text-xs font-bold rounded-full px-2 py-0.5">
                               {selectedCount}
                             </span>
                           )}
@@ -624,15 +612,15 @@ export default function ProjectEditPage({ params }: { params: Promise<{ id: stri
                                   key={option}
                                   className={`flex items-center gap-2 rounded-md border px-3 py-2 cursor-pointer transition-all text-sm ${
                                     checked
-                                      ? 'border-green-400 bg-green-50 text-green-800 font-medium'
-                                      : 'border-gray-200 bg-white text-gray-700 hover:border-green-300 hover:bg-green-50/50'
+                                      ? 'border-emerald-400 bg-emerald-50 text-emerald-800 font-medium'
+                                      : 'border-gray-200 bg-white text-gray-700 hover:border-emerald-300 hover:bg-emerald-50/50'
                                   }`}
                                 >
                                   <input
                                     type="checkbox"
                                     checked={checked}
                                     onChange={() => toggleCategory(option)}
-                                    className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                                    className="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded"
                                   />
                                   <span>{option}</span>
                                 </label>
@@ -655,17 +643,12 @@ export default function ProjectEditPage({ params }: { params: Promise<{ id: stri
           </section>
 
           {/* ==================== セクション4: タグ ==================== */}
-          <section className="bg-white shadow-sm rounded-lg border border-gray-100 overflow-hidden">
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 px-6 py-4 border-b border-gray-100">
-              <div className="flex items-center gap-3">
-                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-300 text-white text-sm font-bold">4</span>
-                <div>
-                  <h2 className="text-lg font-bold text-gray-900">タグ</h2>
-                  <p className="text-xs text-gray-500">利用条件や対象業界を指定できます（任意・複数選択可）</p>
-                </div>
-              </div>
+          <section className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+            <div className="px-5 py-4 border-b border-gray-100">
+              <h2 className="text-sm font-bold text-gray-900">タグ</h2>
+              <p className="text-xs text-gray-400 mt-0.5">利用条件や対象業界を指定できます（任意・複数選択可）</p>
             </div>
-            <div className="p-6">
+            <div className="p-5">
               {/* 選択中のタグバッジ */}
               {tags.length > 0 && (
                 <div className="mb-4 pb-4 border-b border-gray-100">
@@ -693,7 +676,7 @@ export default function ProjectEditPage({ params }: { params: Promise<{ id: stri
                   const allOptions = tagGroup.groups.flatMap((g) => g.options)
                   const selectedCount = allOptions.filter((o) => tags.includes(o)).length
                   return (
-                    <div key={tagGroup.label} className="rounded-lg border border-gray-200 overflow-hidden">
+                    <div key={tagGroup.label} className="rounded-xl border border-gray-200 overflow-hidden">
                       <button
                         type="button"
                         onClick={() => toggleAccordion(openTagGroups, setOpenTagGroups, tagGroup.label)}
@@ -701,9 +684,9 @@ export default function ProjectEditPage({ params }: { params: Promise<{ id: stri
                       >
                         <span className="flex items-center gap-2">
                           <span>{tagGroup.icon}</span>
-                          <span className="text-sm font-semibold text-gray-700">{tagGroup.label}</span>
+                          <span className="text-sm font-medium text-gray-700">{tagGroup.label}</span>
                           {selectedCount > 0 && (
-                            <span className="ml-1 bg-blue-600 text-white text-xs font-bold rounded-full px-2 py-0.5">
+                            <span className="ml-1 bg-emerald-500 text-white text-xs font-bold rounded-full px-2 py-0.5">
                               {selectedCount}
                             </span>
                           )}
@@ -752,22 +735,22 @@ export default function ProjectEditPage({ params }: { params: Promise<{ id: stri
           </section>
 
           {/* ==================== 送信ボタン ==================== */}
-          <div className="bg-white shadow-sm rounded-lg border border-gray-100 p-6">
+          <div className="bg-white rounded-xl border border-gray-100 p-5">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-              <p className="text-sm text-gray-500">
+              <p className="text-xs text-gray-400">
                 <span className="text-red-500">*</span> は必須項目です
               </p>
               <div className="flex items-center gap-3 w-full sm:w-auto">
                 <Link
                   href={`/projects/${project.id}`}
-                  className="flex-1 sm:flex-none text-center px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors text-sm font-medium"
+                  className="flex-1 sm:flex-none text-center px-5 py-2 border border-gray-200 rounded-full text-gray-600 hover:bg-gray-50 transition-colors text-sm"
                 >
                   キャンセル
                 </Link>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="flex-1 sm:flex-none px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm font-bold shadow-sm"
+                  className="flex-1 sm:flex-none px-6 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors text-sm font-medium"
                 >
                   {saving ? '保存中...' : '変更を保存'}
                 </button>

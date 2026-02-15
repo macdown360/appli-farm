@@ -26,102 +26,100 @@ export default async function Home() {
     .limit(6)
 
   return (
-    <div className="min-h-screen bg-amber-50">
+    <div className="min-h-screen bg-[#f6f6f6]">
       <Navbar />
       
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-green-600 via-green-700 to-emerald-800 text-white py-12 md:py-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 hidden sm:block">
-          <div className="absolute top-10 left-10 text-6xl md:text-8xl">🌱</div>
-          <div className="absolute top-20 right-20 text-5xl md:text-6xl">🌻</div>
-          <div className="absolute bottom-10 left-1/4 text-5xl md:text-7xl">🌿</div>
-          <div className="absolute bottom-20 right-1/3 text-4xl md:text-5xl">🐝</div>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 leading-tight">
-            作ったものを、気軽に公開しよう
+      {/* Hero Section - noteのようにシンプル */}
+      <section className="bg-white border-b border-gray-100">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 md:py-24 text-center">
+          <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight tracking-tight">
+            AIで作ったものを、<br className="md:hidden" />気軽にシェアしよう
           </h1>
-          <p className="text-base md:text-xl mb-6 md:mb-8 text-green-100">
-            AIやノーコードで作ったサイトやアプリを、簡単に公開・共有できるプラットフォーム
+          <p className="text-sm md:text-base text-gray-500 mb-8 leading-relaxed">
+            AIやノーコードで作ったサイトやアプリを、<br className="hidden md:inline" />
+            簡単に公開・共有できるプラットフォーム
           </p>
-          <div className="flex flex-col sm:flex-row sm:justify-center gap-3 sm:gap-4">
+          <div className="flex justify-center gap-3">
             <Link
               href={ctaLink}
-              className="px-6 md:px-8 py-2 md:py-3 bg-white text-green-700 rounded-lg font-semibold hover:bg-green-50 transition-colors text-sm md:text-base"
+              className="px-6 py-2.5 bg-emerald-500 text-white rounded-full text-sm font-medium hover:bg-emerald-600 transition-colors"
             >
-              無料で公開する ✨
+              はじめる
             </Link>
             <Link
               href="/projects"
-              className="px-6 md:px-8 py-2 md:py-3 bg-green-800 text-white rounded-lg font-semibold hover:bg-green-900 transition-colors border border-green-500 text-sm md:text-base"
+              className="px-6 py-2.5 bg-white text-gray-700 rounded-full text-sm font-medium border border-gray-300 hover:bg-gray-50 transition-colors"
             >
-              作品を見る
+              作品をみる
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-12 md:py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-900">
-            簡単・シンプルに公開
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            <div className="text-center p-4 md:p-6 bg-green-50 rounded-xl">
-              <div className="text-4xl mb-4">✨</div>
-              <h3 className="text-lg md:text-xl font-semibold mb-2 text-green-800">作ってみた</h3>
-              <p className="text-sm md:text-base text-gray-600">
-                AIやノーコードで作ったサイトやアプリを気軽に公開
+      {/* Features - 3カラムのシンプルな説明 */}
+      <section className="bg-white mt-2">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span className="text-xl">✏️</span>
+              </div>
+              <h3 className="text-sm font-semibold text-gray-900 mb-1">投稿する</h3>
+              <p className="text-xs text-gray-500 leading-relaxed">
+                URLを共有するだけで簡単に作品を公開
               </p>
             </div>
-            <div className="text-center p-4 md:p-6 bg-amber-50 rounded-xl">
-              <div className="text-4xl mb-4">👍</div>
-              <h3 className="text-lg md:text-xl font-semibold mb-2 text-amber-800">反応をもらう</h3>
-              <p className="text-sm md:text-base text-gray-600">
-                利用者からのいいねやコメントでフィードバックを受け取れる
+            <div className="text-center">
+              <div className="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span className="text-xl">💬</span>
+              </div>
+              <h3 className="text-sm font-semibold text-gray-900 mb-1">反応をもらう</h3>
+              <p className="text-xs text-gray-500 leading-relaxed">
+                いいねやコメントでフィードバックを受け取れる
               </p>
             </div>
-            <div className="text-center p-4 md:p-6 bg-green-50 rounded-xl">
-              <div className="text-4xl mb-4">🚀</div>
-              <h3 className="text-lg md:text-xl font-semibold mb-2 text-green-800">共有する</h3>
-              <p className="text-sm md:text-base text-gray-600">
-                他の人の作品を見て、刺激を受けることも
+            <div className="text-center">
+              <div className="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span className="text-xl">🔍</span>
+              </div>
+              <h3 className="text-sm font-semibold text-gray-900 mb-1">みつける</h3>
+              <p className="text-xs text-gray-500 leading-relaxed">
+                他の人の作品から刺激やヒントを得られる
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Recent Projects Section */}
-      <section className="py-12 md:py-16 bg-amber-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-8 mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">✨ 最近公開された作品</h2>
+      {/* Recent Projects */}
+      <section className="mt-2 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 md:py-14">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-lg md:text-xl font-bold text-gray-900">新着</h2>
             <Link
               href="/projects"
-              className="text-green-600 hover:text-green-700 font-medium text-sm md:text-base whitespace-nowrap"
+              className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
             >
-              すべて見る →
+              もっとみる →
             </Link>
           </div>
           
           {projects && projects.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
               {projects.map((project) => (
                 <ProjectCard key={project.id} project={project} />
               ))}
             </div>
           ) : (
-            <div className="text-center py-12 bg-white rounded-lg border-2 border-dashed border-green-300">
-              <p className="text-gray-500 text-lg mb-4">
-                ✨ まだ作品が公開されていません
+            <div className="text-center py-16">
+              <p className="text-gray-400 text-sm mb-4">
+                まだ作品が投稿されていません
               </p>
               <Link
                 href={ctaLink}
-                className="text-green-600 hover:text-green-700 font-medium"
+                className="text-emerald-500 hover:text-emerald-600 text-sm font-medium"
               >
-                最初の作品を公開しませんか？
+                最初の作品を投稿する →
               </Link>
             </div>
           )}
@@ -129,19 +127,19 @@ export default async function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-green-600 to-emerald-700 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            作ったものを、今すぐ公開しよう
+      <section className="mt-2 bg-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-14 md:py-20 text-center">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+            あなたの作品を共有しませんか？
           </h2>
-          <p className="text-xl mb-8 text-green-100">
-            無料で始められます。登録して、あなたの作品をみんなと共有しましょう！
+          <p className="text-sm text-gray-500 mb-6">
+            無料ではじめられます
           </p>
           <Link
             href={ctaLink}
-            className="inline-block px-8 py-3 bg-white text-green-700 rounded-lg font-semibold hover:bg-green-50 transition-colors"
+            className="inline-block px-8 py-2.5 bg-emerald-500 text-white rounded-full text-sm font-medium hover:bg-emerald-600 transition-colors"
           >
-            今すぐ始める ✨
+            無料ではじめる
           </Link>
         </div>
       </section>
