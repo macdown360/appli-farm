@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -99,28 +101,30 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
           {/* フッター：作成者といいね数 */}
           <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-            <Link 
-              href={`/profile/${project.user_id}`}
-              className="flex items-center space-x-2 min-w-0 hover:opacity-70 transition-opacity"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {project.profiles?.avatar_url ? (
-                <Image
-                  src={project.profiles.avatar_url}
-                  alt={project.profiles.full_name || '匿名ユーザー'}
-                  width={24}
-                  height={24}
-                  className="rounded-full flex-shrink-0"
-                />
-              ) : (
-                <div className="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs flex-shrink-0">
-                  👤
-                </div>
-              )}
-              <span className="text-xs md:text-sm text-gray-600 truncate">
-                {project.profiles?.full_name || '匿名ユーザー'}
-              </span>
-            </Link>
+            <div className="flex items-center space-x-2 min-w-0">
+              <Link 
+                href={`/profile/${project.user_id}`}
+                className="flex items-center space-x-2 hover:opacity-70 transition-opacity"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {project.profiles?.avatar_url ? (
+                  <Image
+                    src={project.profiles.avatar_url}
+                    alt={project.profiles.full_name || '匿名ユーザー'}
+                    width={24}
+                    height={24}
+                    className="rounded-full flex-shrink-0"
+                  />
+                ) : (
+                  <div className="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs flex-shrink-0">
+                    👤
+                  </div>
+                )}
+                <span className="text-xs md:text-sm text-gray-600 truncate">
+                  {project.profiles?.full_name || '匿名ユーザー'}
+                </span>
+              </Link>
+            </div>
             <div className="flex items-center space-x-1 text-gray-600 flex-shrink-0 ml-2">
               <span>❤️</span>
               <span className="text-xs md:text-sm">{project.likes_count}</span>
