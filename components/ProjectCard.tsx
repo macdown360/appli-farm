@@ -119,6 +119,18 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               <span className="text-xs">♥ {project.likes_count}</span>
             </div>
           </div>
+
+          {/* 日付情報 */}
+          <div className="flex items-center justify-between pt-2 text-xs text-gray-400">
+            <span>
+              作成: {new Date(project.created_at).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' })}
+            </span>
+            {project.created_at !== project.updated_at && (
+              <span>
+                更新: {new Date(project.updated_at).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' })}
+              </span>
+            )}
+          </div>
         </div>
       </div>
   )

@@ -399,11 +399,20 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                 <p className="text-sm font-medium text-gray-900">
                   {project.profiles?.full_name || '匿名'}
                 </p>
-                <p className="text-xs text-gray-400">
-                  {new Date(project.created_at).toLocaleDateString('ja-JP')}
-                </p>
               </div>
             </Link>
+
+            {/* 日付情報 */}
+            <div className="mb-6 text-xs text-gray-500 space-y-1">
+              <p>
+                <span className="font-medium text-gray-600">作成日:</span> {new Date(project.created_at).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </p>
+              {project.created_at !== project.updated_at && (
+                <p>
+                  <span className="font-medium text-gray-600">最終更新:</span> {new Date(project.updated_at).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </p>
+              )}
+            </div>
 
             {/* 説明 */}
             <div className="mb-6">
