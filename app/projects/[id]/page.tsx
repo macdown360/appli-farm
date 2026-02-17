@@ -39,6 +39,14 @@ interface Comment {
   }
 }
 
+interface ProjectUpdate {
+  id: string
+  project_id: string
+  content: string
+  created_at: string
+  updated_at: string
+}
+
 export default function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const [project, setProject] = useState<Project | null>(null)
   const [user, setUser] = useState<User | null>(null)
@@ -48,6 +56,9 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
   const [comments, setComments] = useState<Comment[]>([])
   const [newComment, setNewComment] = useState('')
   const [submittingComment, setSubmittingComment] = useState(false)
+  const [updates, setUpdates] = useState<ProjectUpdate[]>([])
+  const [newUpdate, setNewUpdate] = useState('')
+  const [submittingUpdate, setSubmittingUpdate] = useState(false)
   const router = useRouter()
   const supabase = createClient()
   const [resolvedParams, setResolvedParams] = useState<{ id: string } | null>(null)
@@ -114,6 +125,17 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
       if (commentsData) {
         setComments(commentsData)
+      }
+
+      // 改善履歴を取得
+      const { data: updatesData } = await supabase
+        .from('project_updates')
+        .select('*')
+        .eq('project_id', resolvedParams.id)
+        .order('created_at', { ascending: false })
+
+      if (updatesData) {
+        setUpdates(updatesData)
       }
 
       setLoading(false)
@@ -221,31 +243,27 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
     setSubmittingComment(true)
 
     try {
-      const { data, error } = await supabase
-        .from('comments')
-        .insert({
+      const response = await fetch('/api/comments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           project_id: project.id,
-          user_id: user.id,
           content: newComment.trim()
         })
-        .select(`
-          *,
-          profiles:user_id (
-            full_name,
-            avatar_url
-          )
-        `)
-        .single()
+      })
 
-      if (error) throw error
-
-      if (data) {
-        setComments([data, ...comments])
-        setNewComment('')
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'コメントの公開に失敗しました')
       }
+
+      const data = await response.json()
+      setComments([data, ...comments])
+      setNewComment('')
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'コメントの公開に失敗しました'
       console.error('コメントの公開に失敗しました:', error)
-      alert('コメントの公開に失敗しました')
+      alert(errorMessage)
     } finally {
       setSubmittingComment(false)
     }
@@ -258,18 +276,83 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
     if (!confirmed) return
 
     try {
-      const { error } = await supabase
-        .from('comments')
-        .delete()
-        .eq('id', commentId)
-        .eq('user_id', user.id)
+      const response = await fetch(`/api/comments?id=${commentId}`, {
+        method: 'DELETE'
+      })
 
-      if (error) throw error
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || '削除に失敗しました')
+      }
 
       setComments(comments.filter(comment => comment.id !== commentId))
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'コメントの削除に失敗しました'
       console.error('コメントの削除に失敗しました:', error)
-      alert('コメントの削除に失敗しました')
+      alert(errorMessage)
+    }
+  }
+
+  const handleUpdateSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!user) {
+      router.push('/auth/login')
+      return
+    }
+
+    if (!project || !newUpdate.trim()) return
+
+    setSubmittingUpdate(true)
+
+    try {
+      const response = await fetch('/api/project-updates', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          project_id: project.id,
+          content: newUpdate.trim()
+        })
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || '改善履歴の追加に失敗しました')
+      }
+
+      const data = await response.json()
+      setUpdates([data, ...updates])
+      setNewUpdate('')
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : '改善履歴の追加に失敗しました'
+      console.error('改善履歴の追加に失敗しました:', error)
+      alert(errorMessage)
+    } finally {
+      setSubmittingUpdate(false)
+    }
+  }
+
+  const handleUpdateDelete = async (updateId: string) => {
+    if (!user) return
+
+    const confirmed = window.confirm('この改善履歴を削除しますか？')
+    if (!confirmed) return
+
+    try {
+      const response = await fetch(`/api/project-updates?id=${updateId}`, {
+        method: 'DELETE'
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || '削除に失敗しました')
+      }
+
+      setUpdates(updates.filter(update => update.id !== updateId))
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : '改善履歴の削除に失敗しました'
+      console.error('改善履歴の削除に失敗しました:', error)
+      alert(errorMessage)
     }
   }
 
@@ -450,7 +533,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                 onClick={handleLike}
                 className={`px-5 py-2.5 rounded-full font-medium border transition-colors text-sm whitespace-nowrap ${
                   isLiked
-                    ? 'border-red-200 text-red-500 bg-red-50'
+                    ? 'border-red-500 text-red-500'
                     : 'border-gray-200 text-gray-600 hover:border-red-200 hover:text-red-500'
                 }`}
               >
@@ -506,6 +589,74 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
               </div>
             </div>
 
+            {/* 改善履歴セクション */}
+            <div className="mt-6 pt-6 border-t border-gray-100">
+              <h2 className="text-base font-bold text-gray-900 mb-2">
+                改善履歴 ({updates.length})
+              </h2>
+              <p className="text-xs text-gray-400 mb-5">
+                改善履歴はプロジェクトの作成者のみが追加できます
+              </p>
+
+              {/* 改善履歴フォーム - プロジェクト所有者のみ表示 */}
+              {isOwner && (
+                <form onSubmit={handleUpdateSubmit} className="mb-6">
+                  <textarea
+                    value={newUpdate}
+                    onChange={(e) => setNewUpdate(e.target.value)}
+                    placeholder="改善内容を記入してください..."
+                    maxLength={50}
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none text-sm"
+                    rows={2}
+                    disabled={submittingUpdate}
+                  />
+                  <div className="mt-2 flex justify-end">
+                    <button
+                      type="submit"
+                      disabled={submittingUpdate || !newUpdate.trim()}
+                      className="px-5 py-1.5 bg-emerald-500 text-white rounded-full text-sm font-medium hover:bg-emerald-600 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors"
+                    >
+                      {submittingUpdate ? '追加中...' : '追加'}
+                    </button>
+                  </div>
+                </form>
+              )}
+
+              {/* 改善履歴リスト */}
+              <div className="space-y-3">
+                {updates.length === 0 ? (
+                  <p className="text-center text-gray-400 py-6 text-sm">
+                    まだ改善履歴がありません
+                  </p>
+                ) : (
+                  updates.map((update) => (
+                    <div key={update.id} className="bg-emerald-50 rounded-lg px-4 py-2.5 border border-emerald-200 flex items-start justify-between gap-3">
+                      <div className="flex flex-col gap-1 min-w-0 flex-1">
+                        <p className="text-xs text-emerald-700 font-medium">
+                          {new Date(update.created_at).toLocaleDateString('ja-JP', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                          })}
+                        </p>
+                        <p className="text-sm text-gray-700 break-words whitespace-normal">
+                          {update.content}
+                        </p>
+                      </div>
+                      {isOwner && (
+                        <button
+                          onClick={() => handleUpdateDelete(update.id)}
+                          className="text-gray-400 hover:text-red-500 text-xs transition-colors whitespace-nowrap"
+                        >
+                          削除
+                        </button>
+                      )}
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+
             {/* コメントセクション */}
             <div className="mt-6 pt-6 border-t border-gray-100">
               <h2 className="text-base font-bold text-gray-900 mb-5">
@@ -519,6 +670,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="コメントを書く..."
+                    maxLength={100}
                     className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent resize-none text-sm"
                     rows={3}
                     disabled={submittingComment}
@@ -555,7 +707,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                   </p>
                 ) : (
                   comments.map((comment) => (
-                    <div key={comment.id} className="border-b border-gray-100 pb-4 last:border-0">
+                    <div key={comment.id} className="bg-blue-50 rounded-lg p-4 border border-blue-100 mb-4">
                       <div className="flex items-start justify-between mb-2">
                         <Link 
                           href={`/profile/${comment.user_id}`}

@@ -187,10 +187,10 @@ export default async function Home() {
       <section className="mt-2 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-14 md:py-20 text-center">
           <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-            あなたの作品を共有しませんか？
+            あなたのアイデアが世界を変える！
           </h2>
           <p className="text-sm text-gray-500 mb-6">
-            無料ではじめられます
+            ...かもしれない
           </p>
           <Link
             href={ctaLink}
