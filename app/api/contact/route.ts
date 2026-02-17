@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
             from: 'contact@applifarm.jp',
             to: 'macdown360@gmail.com',
             reply_to: body.email,
-            subject: `【Appli Farm お問い合わせ】${body.subject}`,
+            subject: `【AIで作ってみた件 お問い合わせ】${body.subject}`,
             html: `
               <h2>新しいお問い合わせがあります</h2>
               <p><strong>お名前:</strong> ${escapeHtml(body.name)}</p>
