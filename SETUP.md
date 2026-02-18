@@ -86,9 +86,52 @@ NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
 ```
 
+### 4.5 メール認証の有効化（重要）
+
+メール確認機能を使用するには、Supabaseのメール設定を有効にする必要があります：
+
+#### ステップ 1: メール確認の有効化
+
+1. [Supabaseダッシュボード](https://app.supabase.com)にログイン
+2. プロジェクトを選択
+3. 左メニューの「**Authentication**」→「**Providers**」をクリック
+4. 「**Email**」セクションを探す
+5. 「**Enable Email Signup**」✅ にチェック
+6. 「**Confirm email**」✅ にチェック（重要！）
+7. 「**Save**」をクリック
+
+#### ステップ 2: コールバックURLの設定
+
+1. 左メニューの「**Authentication**」→「**URL Configuration**」をクリック
+2. 「**Redirect URLs**」セクションで「**Add a redirect URL**」をクリック
+3. 以下のURLを追加（開発環境）:
+   - `http://localhost:3000/auth/confirm`
+   - `http://localhost:3000/`
+4. 本番環境では以下を追加:
+   - `https://yourdomain.com/auth/confirm`
+   - `https://yourdomain.com/`
+5. 「**Save**」をクリック
+
+#### ステップ 3: メールプロバイダーの設定（本番環境）
+
+本番環境でメール送信を使用する場合は、以下のいずれかを設定します：
+
+**オプション A: SMTP設定（推奨）**
+1. 「**SMTP**」セクションで「**Use a custom SMTP server**」を選択
+2. メールプロバイダーの認証情報を入力
+3. 「**Save**」をクリック
+
+**オプション B: Supabase デフォルトメール**
+- Supabaseの無料メール機能を使用（1日の送信数制限あり）
+
+**開発環境でのテスト:**
+- Supabaseダッシュボードの「**Authentication**」→「**Users**」で手動確認可能
+- この場合、メールは実際には送信されず、確認URLが取得できます
+
 ### 5. 開発サーバーの起動
 
 ```bash
+npm install  # 初回のみ
 npm run dev
 ```
 
@@ -99,6 +142,8 @@ npm run dev
 - [ ] Supabaseプロジェクトを作成
 - [ ] データベーススキーマを実行
 - [ ] Supabase Storageバケット（project-images）を作成
+- [ ] メール認証を有効化（Authentication → Email确认）
+- [ ] コールバックURLを設定（localhost と 本番ドメイン）
 - [ ] `.env.local` に認証情報を設定
 - [ ] `npm install` を実行（初回のみ）
 - [ ] `npm run dev` で開発サーバーを起動
@@ -113,6 +158,22 @@ npm run dev
 ### エラー: "relation does not exist"
 - `supabase/schema.sql` が正しく実行されているか確認
 - Supabaseの「Table Editor」でテーブルが作成されているか確認
+
+### メール確認が送信されない / 確認ボタンが表示されない
+
+1. **Supabase設定を確認:**
+   - Authentication → Providers → Email でメール確認が有効か確認（✅ Confirm email）
+   - Authentication → URL Configuration でコールバックURLが設定されているか確認
+
+2. **開発環境でのテスト:**
+   - ローカル開発时、Supabaseはデフォルトでメールを送信しません
+   - Supabaseダッシュボード → Authentication → Users でユーザーを確認
+   - 「email_confirmed_at」が NULL の場合、確認が必要です
+   - 手動で確認マークをつけるか、確認URLを取得できます
+
+3. **本番環境用のメール設定:**
+   - SMTP または メールプロバイダーを設定してください
+   - Authentication → Providers → Email → SMTP settings で設定
 
 ### エラー: 画像がアップロードできない・「未認可」エラーが出る
 - Supabase Storage の `project-images` バケットが存在するか確認

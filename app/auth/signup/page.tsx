@@ -4,23 +4,30 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+import { getAuthErrorMessage } from '@/lib/auth-errors'
 
 export default function SignupPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [fullName, setFullName] = useState('')
   const [agreedToTerms, setAgreedToTerms] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<{ title: string; message: string; suggestion: string } | null>(null)
   const [loading, setLoading] = useState(false)
+  const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const router = useRouter()
   const supabase = createClient()
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
+    setSuccessMessage(null)
 
     if (!agreedToTerms) {
-      setError('利用規約と個人情報保護方針に同意する必要があります')
+      setError({
+        title: '利用規約への同意が必要です',
+        message: '利用規約と個人情報保護方針に同意する必要があります。',
+        suggestion: 'チェックボックスをチェックしてください。',
+      })
       return
     }
 
@@ -31,6 +38,7 @@ export default function SignupPage() {
         email,
         password,
         options: {
+          emailRedirectTo: `${window.location.origin}/auth/confirm`,
           data: {
             full_name: fullName,
           },
@@ -53,14 +61,16 @@ export default function SignupPage() {
 
         if (profileError) {
           console.error('Profile creation error:', profileError)
-          // プロフィール作成エラーは警告として表示
         }
       }
 
-      router.push('/')
-      router.refresh()
+      setSuccessMessage('確認メールを送信しました。メールからのリンクを確認してください。')
+      setEmail('')
+      setPassword('')
+      setFullName('')
     } catch (error: any) {
-      setError(error.message || '登録に失敗しました')
+      const errorMessage = getAuthErrorMessage(error.message || '登録に失敗しました')
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }
@@ -87,8 +97,22 @@ export default function SignupPage() {
         <div className="bg-white py-6 md:py-8 px-5 rounded-xl border border-gray-100 sm:px-10">
           <form className="space-y-5" onSubmit={handleSignup}>
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">
-                {error}
+              <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+                <p className="text-red-900 font-semibold text-sm mb-1">
+                  {error.title}
+                </p>
+                <p className="text-red-700 text-sm mb-2">
+                  {error.message}
+                </p>
+                <p className="text-red-600 text-xs bg-white rounded px-3 py-2">
+                  💡 {error.suggestion}
+                </p>
+              </div>
+            )}
+
+            {successMessage && (
+              <div className="bg-green-50 border border-green-200 text-green-600 px-4 py-3 rounded-xl text-sm">
+                {successMessage}
               </div>
             )}
 

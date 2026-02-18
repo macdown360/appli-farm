@@ -4,11 +4,12 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+import { getAuthErrorMessage } from '@/lib/auth-errors'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<{ title: string; message: string; suggestion: string } | null>(null)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const supabase = createClient()
@@ -29,7 +30,8 @@ export default function LoginPage() {
       router.push('/')
       router.refresh()
     } catch (error: any) {
-      setError(error.message || 'ログインに失敗しました')
+      const errorMessage = getAuthErrorMessage(error.message || 'ログインに失敗しました')
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }
@@ -56,8 +58,16 @@ export default function LoginPage() {
         <div className="bg-white py-6 md:py-8 px-5 rounded-xl border border-gray-100 sm:px-10">
           <form className="space-y-5" onSubmit={handleLogin}>
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">
-                {error}
+              <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+                <p className="text-red-900 font-semibold text-sm mb-1">
+                  {error.title}
+                </p>
+                <p className="text-red-700 text-sm mb-2">
+                  {error.message}
+                </p>
+                <p className="text-red-600 text-xs bg-white rounded px-3 py-2">
+                  💡 {error.suggestion}
+                </p>
               </div>
             )}
 
