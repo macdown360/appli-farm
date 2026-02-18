@@ -17,22 +17,49 @@ export default function ConfirmPage() {
   useEffect(() => {
     const confirmEmail = async () => {
       try {
-        // URLのハッシュからトークンを取得
-        const hash = window.location.hash.substring(1)
-        if (!hash) {
-          setError({
-            title: '確認トークンが見つかりません',
-            message: 'メール内のリンクからアクセスしてください。',
-            suggestion: '登録時に送信されたメール内のリンクをクリックしてください。リンクの有効期限は24時間です。',
-          })
+        // まず、既存のセッションを確認
+        const { data: { session } } = await supabase.auth.getSession()
+        
+        if (session) {
+          // 既に認証済み
+          setSuccess(true)
+          setTimeout(() => {
+            router.push('/')
+          }, 2000)
+          setLoading(false)
+          return
+        }
+
+        // URLからトークンハッシュとタイプを取得
+        const token_hash = searchParams.get('token_hash')
+        const type = searchParams.get('type')
+
+        if (!token_hash || !type) {
+          // エラーパラメータの確認
+          const errorCode = searchParams.get('error')
+          const errorDescription = searchParams.get('error_description')
+          
+          if (errorCode || errorDescription) {
+            setError({
+              title: 'メール確認エラー',
+              message: errorDescription || 'メール確認に失敗しました。',
+              suggestion: 'リンクの有効期限が切れている可能性があります。新しい確認メールを再送信してください。',
+            })
+          } else {
+            setError({
+              title: '確認トークンが見つかりません',
+              message: 'メール内のリンクからアクセスしてください。',
+              suggestion: '登録時に送信されたメール内のリンクをクリックしてください。リンクの有効期限は24時間です。',
+            })
+          }
           setLoading(false)
           return
         }
 
         // トークンを処理
         const { error } = await supabase.auth.verifyOtp({
-          token_hash: hash,
-          type: 'email',
+          token_hash,
+          type: type as any,
         })
 
         if (error) {
@@ -40,10 +67,10 @@ export default function ConfirmPage() {
         }
 
         setSuccess(true)
-        // 3秒後にホームページにリダイレクト
+        // 2秒後にホームページにリダイレクト
         setTimeout(() => {
           router.push('/')
-        }, 3000)
+        }, 2000)
       } catch (error: any) {
         const errorMessage = getAuthErrorMessage(error.message || 'メール確認に失敗しました')
         setError(errorMessage)
@@ -53,7 +80,7 @@ export default function ConfirmPage() {
     }
 
     confirmEmail()
-  }, [supabase, router])
+  }, [searchParams, supabase, router])
 
   return (
     <div className="min-h-screen bg-[#f6f6f6] flex flex-col justify-center py-12 px-4 sm:px-6">
