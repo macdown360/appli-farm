@@ -77,6 +77,10 @@ export default function SignupPage() {
       setPassword('')
       setFullName('')
     } catch (error: any) {
+      console.error('Full error object:', JSON.stringify(error, null, 2))
+      console.error('Error message:', error.message)
+      console.error('Error status:', error.status)
+      console.error('Error code:', error.code)
       const errorMessage = getAuthErrorMessage(error.message || '登録に失敗しました')
       setError(errorMessage)
     } finally {
